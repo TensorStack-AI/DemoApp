@@ -1,0 +1,46 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net9.0-windows10.0.17763.0</TargetFramework>
+    <PlatformTarget>x64</PlatformTarget>
+    <UseWPF>true</UseWPF>
+    <ApplicationIcon>Images\Icon.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <!--Common Packages-->
+  <ItemGroup>
+    <PackageReference Include="System.Linq.Async" Version="6.0.3" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="10.0.0" />
+    <PackageReference Include="TensorStack.Providers.DML" Version="0.1.39" />
+    <PackageReference Include="TensorStack.WPF" Version="0.1.39" />
+    <PackageReference Include="TensorStack.Upscaler" Version="0.1.39" />
+    <PackageReference Include="TensorStack.Extractors" Version="0.1.39" />
+    <PackageReference Include="TensorStack.TextGeneration" Version="0.1.39" />
+    <PackageReference Include="TensorStack.StableDiffusion" Version="0.1.39" />
+    <PackageReference Include="TensorStack.Video" Version="0.1.39" />
+    <PackageReference Include="TensorStack.Audio.Windows" Version="0.1.39" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <Resource Include="Images\Icon.ico" />
+    <Resource Include="Images\Icon.png" />
+    <Resource Include="Images\Background.jpeg" />
+    <Resource Include="Images\Tensorstack-Text.png" />
+  </ItemGroup>
+
+
+  <ItemGroup>
+    <None Update="Settings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="ColorPicker">
+      <HintPath>ColorPicker.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>

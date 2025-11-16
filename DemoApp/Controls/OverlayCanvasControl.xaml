@@ -1,0 +1,197 @@
+﻿<CommonControls:ImageElementBase x:Class="DemoApp.Controls.OverlayCanvasControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
+             xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+             xmlns:base="clr-namespace:DemoApp"
+             xmlns:local="clr-namespace:DemoApp.Controls"
+             xmlns:Behaviors="clr-namespace:TensorStack.WPF.Behaviors;assembly=TensorStack.WPF"
+             xmlns:CommonControls="clr-namespace:TensorStack.WPF.Controls;assembly=TensorStack.WPF"
+             xmlns:CommonConverters="clr-namespace:TensorStack.WPF.Converters;assembly=TensorStack.WPF"
+             xmlns:Controls="clr-namespace:DemoApp.Controls"
+             xmlns:Common="clr-namespace:DemoApp.Common"
+             xmlns:Views="clr-namespace:DemoApp.Views">
+    <CommonControls:ImageElementBase.Resources>
+        <!-- Polygon DataTemplate -->
+        <DataTemplate x:Key="PolygonTemplate">
+            <Canvas>
+                <Rectangle Stroke="Red" StrokeThickness="0" Canvas.Left="{Binding Rectangle.PosX}" Canvas.Top="{Binding Rectangle.PosY}" Width="{Binding Rectangle.Width}" Height="{Binding Rectangle.Height}"  ClipToBounds="False" Visibility="{Binding IsEnabled, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                <Polygon Points="{Binding Polygon}" Fill="Black" Stroke="Lime" StrokeThickness="2" Visibility="{Binding IsEnabled, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+            </Canvas>
+        </DataTemplate>
+
+
+        <!-- Rectangle DataTemplate -->
+        <DataTemplate x:Key="RectangleTemplate">
+            <Canvas>
+                <Border Canvas.Left="{Binding Rectangle.PosX}" Canvas.Top="{Binding Rectangle.PosY}" BorderBrush="{Binding ColorHex}" BorderThickness="{Binding BorderSize}" Width="{Binding Rectangle.Width}" Height="{Binding Rectangle.Height}" ClipToBounds="False" Visibility="{Binding IsEnabled, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <TextBlock Text="{Binding Text}" Foreground="{Binding TextColorHex}" Background="{Binding ColorHex}" HorizontalAlignment="Left" VerticalAlignment="Bottom" Padding="4,1"/>
+                </Border>
+            </Canvas>
+        </DataTemplate>
+
+        <!-- Rectangle DataTemplate -->
+        <DataTemplate x:Key="RectangleGroupTemplate">
+            <ItemsControl  ItemsSource="{Binding RectangleGroup}" Visibility="{Binding IsEnabled, Converter={StaticResource BooleanToVisibilityConverter}}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border  
+                                                                BorderBrush="{Binding DataContext.ColorHex, RelativeSource={RelativeSource AncestorType=ContentPresenter, AncestorLevel=2}}" 
+                                                                BorderThickness="{Binding DataContext.BorderSize, RelativeSource={RelativeSource AncestorType=ContentPresenter, AncestorLevel=2}}" 
+                                                                Width="{Binding Width}" 
+                                                                Height="{Binding Height}" 
+                                                                MinHeight="24"
+                                                                ClipToBounds="False"
+                                                                ToolTip="{Binding DataContext.Text, RelativeSource={RelativeSource AncestorType=ContentPresenter, AncestorLevel=2}}">
+                            <TextBlock Text="{Binding DataContext.Text, RelativeSource={RelativeSource AncestorType=ContentPresenter, AncestorLevel=2}}" 
+                                                                    Foreground="{Binding DataContext.TextColorHex, RelativeSource={RelativeSource AncestorType=ContentPresenter, AncestorLevel=2}}" 
+                                                                    Background="{Binding DataContext.ColorHex, RelativeSource={RelativeSource AncestorType=ContentPresenter, AncestorLevel=2}}" 
+                                                                    HorizontalAlignment="Left" 
+                                                                    VerticalAlignment="Bottom" 
+                                                                    ClipToBounds="False" 
+                                                                    TextTrimming="CharacterEllipsis"
+                                                                    Padding="4,1"/>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <Canvas />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemContainerStyle>
+                    <Style>
+                        <Setter Property="Canvas.Left" Value="{Binding PosX}" />
+                        <Setter Property="Canvas.Top" Value="{Binding PosY}" />
+                    </Style>
+                </ItemsControl.ItemContainerStyle>
+            </ItemsControl>
+        </DataTemplate>
+
+
+        <!-- Label DataTemplate -->
+        <DataTemplate x:Key="LabelTemplate">
+            <Canvas>
+                <Rectangle  StrokeThickness="2" Canvas.Left="{Binding Rectangle.PosX}" Canvas.Top="{Binding Rectangle.PosY}" Width="{Binding Rectangle.Width}" Height="{Binding Rectangle.Height}"  ClipToBounds="False" Visibility="{Binding IsEnabled, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                <Polygon Points="{Binding Polygon}" Fill="Transparent" Stroke="Lime"  Visibility="{Binding IsEnabled, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <Polygon.Style>
+                        <Style TargetType="{x:Type Polygon}">
+                            <Setter Property="StrokeThickness" Value="{Binding BorderSize}" />
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding IsTextDocumentMode, RelativeSource={RelativeSource AncestorType={x:Type local:OverlayCanvasControl}}}" Value="True" >
+                                    <Setter Property="StrokeThickness" Value="0" />
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Polygon.Style>
+                </Polygon>
+                <Viewbox Canvas.Left="{Binding Rectangle.PosX}" Canvas.Top="{Binding Rectangle.PosY}" Width="{Binding Rectangle.Width}" Height="{Binding Rectangle.Height}" Stretch="Uniform" ClipToBounds="False" Visibility="{Binding IsTextDocumentMode, RelativeSource={RelativeSource AncestorType={x:Type local:OverlayCanvasControl}}, Converter={StaticResource BooleanToVisibilityConverter}}">
+                    <TextBox Text="{Binding Text}" Margin="0"  Foreground="Black" Style="{StaticResource TextBlockStyle}" ClipToBounds="False"/>
+                </Viewbox>
+            </Canvas>
+        </DataTemplate>
+
+
+        <!-- DataTemplateSelector -->
+        <Controls:ShapeTemplateSelector x:Key="ShapeSelector"
+                                                LabelTemplate="{StaticResource LabelTemplate}" 
+                                                PolygonTemplate="{StaticResource PolygonTemplate}" 
+                                                RectangleTemplate="{StaticResource RectangleTemplate}"
+                                                RectangleGroupTemplate="{StaticResource RectangleGroupTemplate}" />
+
+    </CommonControls:ImageElementBase.Resources>
+
+    <Border DataContext="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:OverlayCanvasControl}}}" BorderBrush="{StaticResource ButtonBorderBrush}" Background="{StaticResource ContainerBackground}" BorderThickness="1"  >
+        <DockPanel >
+
+            <!--Controls-->
+            <DockPanel DockPanel.Dock="Bottom" Visibility="{Binding IsToolbarEnabled, Converter={StaticResource BooleanToVisibilityConverter}}" Margin="-1,0,-1,-1" Height="60">
+
+                <!--Progress-->
+                <CommonControls:ProgressElement  
+                    DockPanel.Dock="Top"
+                    Height="10"
+                    Margin="1"
+                    Progress="{Binding Progress}" />
+
+                <!--Clear-->
+                <Grid DockPanel.Dock="Right">
+                    <Button Command="{Binding ClearCommand}" Width="50">
+                        <CommonControls:FontAwesome Icon="&#xf2ed;" />
+                    </Button>
+                </Grid>
+
+                <!--Image Info-->
+                <Grid DockPanel.Dock="Right" >
+                    <StackPanel Orientation="Horizontal" Margin="0,0,10,0" VerticalAlignment="Center">
+                        <TextBlock Text="{Binding Source.Width, FallbackValue=0}" />
+                        <TextBlock Text=" x " Opacity=".7" VerticalAlignment="Center" FontStyle="Italic"/>
+                        <TextBlock Text="{Binding Source.Height, FallbackValue=0}" />
+                    </StackPanel>
+                </Grid>
+
+                <!--Buttons-->
+                <UniformGrid Columns="5">
+                    <Button Command="{Binding LoadSourceCommand}" Visibility="{Binding IsLoadEnabled, Converter={StaticResource BooleanToVisibilityConverter}}" >
+                        <CommonControls:FontAwesome Icon="&#xf0ee;" />
+                    </Button>
+                    <Button Command="{Binding SaveSourceCommand}" Visibility="{Binding IsSaveEnabled, Converter={StaticResource BooleanToHiddenConverter}}">
+                        <CommonControls:FontAwesome Icon="&#xf0c7;" />
+                    </Button>
+                </UniformGrid>
+
+            </DockPanel>
+
+            <!--Content-->
+            <Grid>
+
+                <!--Image-->
+                <Image x:Name="ImageControl" Source="{Binding Source.Image, FallbackValue={StaticResource PlaceholderImage}}" Stretch="Uniform" />
+
+                <!--Overlays-->
+                <Viewbox >
+                    <Grid x:Name="Surface" Width="{Binding Source.Width}" Height="{Binding Source.Height}" >
+                        <ItemsControl ItemsSource="{Binding Overlays}" ItemTemplateSelector="{StaticResource ShapeSelector}" >
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <Canvas />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.Style>
+                                <Style TargetType="{x:Type ItemsControl}">
+                                    <Setter Property="Background" Value="Transparent" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsTextDocumentMode, RelativeSource={RelativeSource AncestorType={x:Type local:OverlayCanvasControl}}}" Value="True">
+                                            <Setter Property="Background" Value="White" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </ItemsControl.Style>
+                        </ItemsControl>
+
+                        <Rectangle Opacity="0.8" Clip="{Binding OverlayMaskGeometry}" Visibility="{Binding OverlayMaskGeometry, Converter={StaticResource NullVisibilityConverter}}" >
+                            <Rectangle.Style>
+                                <Style TargetType="{x:Type Rectangle}">
+                                    <Setter Property="Fill" Value="Black" />
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsTextDocumentMode, RelativeSource={RelativeSource AncestorType={x:Type local:OverlayCanvasControl}}}" Value="True">
+                                            <Setter Property="Fill" Value="Transparent" />
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Rectangle.Style>
+                        </Rectangle>
+
+                        <Canvas x:Name="SelectionCanvas" Background="Transparent" MouseDown="SelectionCanvas_MouseDown" MouseMove="SelectionCanvas_MouseMove" MouseUp="SelectionCanvas_MouseUp" MouseLeave="SelectionCanvas_MouseLeave">
+                             <Rectangle x:Name="SelectionRectangle" Stroke="Red" StrokeThickness="2" Fill="Transparent" Visibility="Collapsed" />
+                        </Canvas>
+                    </Grid>
+                </Viewbox>
+
+            </Grid>
+
+        </DockPanel>
+    </Border>
+</CommonControls:ImageElementBase>

@@ -1,0 +1,743 @@
+{
+  "DirectoryTemp": "Temp",
+  "DirectoryModel": "Models",
+  "DirectoryHistory": "History",
+  "MaxHistory": 500,
+  "UpscaleModels": [
+    {
+      "Id": 1,
+      "Name": "BSRGAN-2x",
+      "SupportedDevices":["CPU", "GPU"],
+      "Channels": 3,
+      "SampleSize": 0,
+      "ScaleFactor": 2,
+      "UrlPaths":[ "https://huggingface.co/saddam213/DemoApp/resolve/main/Upscale/BSRGAN-2x/model.onnx?download=true"]
+    },
+    {
+      "Id": 2,
+      "Name": "RealESRGAN-2x",
+      "SupportedDevices":["CPU", "GPU"],
+      "Channels": 3,
+      "SampleSize": 0,
+      "ScaleFactor": 2,
+      "UrlPaths":[ "https://huggingface.co/saddam213/DemoApp/resolve/main/Upscaler/RealESRGAN-2x/model.onnx?download=true"]
+    },
+    {
+      "Id": 3,
+      "Name": "RealESRGAN-4x",
+      "SupportedDevices":["CPU", "GPU"],
+      "Channels": 3,
+      "SampleSize": 0,
+      "ScaleFactor": 4,
+      "UrlPaths":[ "https://huggingface.co/saddam213/DemoApp/resolve/main/Upscaler/RealESRGAN-4x/model.onnx?download=true"]
+    },
+    {
+      "Id": 4,
+      "Name": "RealESR-General-4x",
+      "SupportedDevices":["CPU", "GPU"],
+      "IsDefault": true,
+      "Channels": 3,
+      "SampleSize": 0,
+      "ScaleFactor": 4,
+      "UrlPaths":[ "https://huggingface.co/saddam213/DemoApp/resolve/main/Upscale/RealESR-General-4x/model.onnx?download=true"]
+    },
+    {
+      "Id": 5,
+      "Name": "Swin2SR-Classical-2x",
+      "SupportedDevices":["CPU", "GPU"],
+      "Channels": 3,
+      "SampleSize": 0,
+      "ScaleFactor": 2,
+      "UrlPaths":[ "https://huggingface.co/saddam213/DemoApp/resolve/main/Upscaler/Swin2SR-Classical-2x/model.onnx?download=true"]
+    },
+    {
+      "Id": 6,
+      "Name": "Swin2SR-Classical-4x",
+      "SupportedDevices":["CPU", "GPU"],
+      "Channels": 3,
+      "SampleSize": 0,
+      "ScaleFactor": 4,
+      "UrlPaths":[ "https://huggingface.co/saddam213/DemoApp/resolve/main/Upscaler/Swin2SR-Classical-4x/model.onnx?download=true"]
+    },
+    {
+      "Id": 7,
+      "Name": "SwinIR-BSRGAN-4x",
+      "SupportedDevices":["CPU", "GPU"],
+      "Channels": 3,
+      "SampleSize": 0,
+      "ScaleFactor": 4,
+      "UrlPaths":[ "https://huggingface.co/saddam213/DemoApp/resolve/main/Upscaler/SwinIR-BSRGAN-4x/model.onnx?download=true"]
+    },
+    {
+      "Id": 8,
+      "Name": "UltraMix-Smooth-4x",
+      "SupportedDevices":["CPU", "GPU"],
+      "Channels": 3,
+      "SampleSize": 0,
+      "ScaleFactor": 4,
+      "UrlPaths":[ "https://huggingface.co/saddam213/DemoApp/resolve/main/Upscaler/UltraMix-Smooth-4x/model.onnx?download=true"]
+    },
+    {
+      "Id": 9,
+      "Name": "UltraSharp-4x",
+      "SupportedDevices":["CPU", "GPU"],
+      "Channels": 3,
+      "SampleSize": 0,
+      "ScaleFactor": 4,
+      "UrlPaths":[ "https://huggingface.co/saddam213/DemoApp/resolve/main/Upscaler/UltraSharp-4x/model.onnx?download=true"]
+    },
+    {
+      "Id": 10,
+      "Name": "APISR_RRDB_GAN_2x",
+      "SupportedDevices":["CPU", "GPU"],
+      "Channels": 3,
+      "SampleSize": 0,
+      "ScaleFactor": 2,
+      "UrlPaths":[ "https://huggingface.co/saddam213/DemoApp/resolve/main/Upscaler/APISR-RRDB-GAN-2x/model.onnx?download=true"]
+    },
+    {
+      "Id": 11,
+      "Name": "APISR_GRL_GAN_4x",
+      "SupportedDevices":["CPU", "GPU"],
+      "Channels": 3,
+      "SampleSize": 0,
+      "ScaleFactor": 4,
+      "UrlPaths":[ "https://huggingface.co/saddam213/DemoApp/resolve/main/Upscaler/APISR-GRL-GAN-4x/model.onnx?download=true"]
+    },
+    {
+      "Id": 12,
+      "Name": "RealWebPhoto_RGT_4x",
+      "SupportedDevices":["CPU", "GPU"],
+      "Channels": 3,
+      "SampleSize": 0,
+      "ScaleFactor": 4,
+      "UrlPaths":[ "https://huggingface.co/saddam213/DemoApp/resolve/main/Upscaler/RealWebPhoto-RGT-4x/model.onnx?download=true"]
+    },
+    {
+      "Id": 13,
+      "Name": "AnimeSharpV2_ESRGAN_Soft_2x",
+      "SupportedDevices":["CPU", "GPU"],
+      "Channels": 3,
+      "SampleSize": 0,
+      "ScaleFactor": 2,
+      "UrlPaths":[ "https://huggingface.co/saddam213/DemoApp/resolve/main/Upscaler/AnimeSharpV2-ESRGAN-Soft-2x/model.onnx?download=true"]
+    },
+    {
+      "Id": 14,
+      "Name": "AnimeSharpV2_MoSR_Sharp_2x",
+      "SupportedDevices":["CPU", "GPU"],
+      "Channels": 3,
+      "SampleSize": 0,
+      "ScaleFactor": 2,
+      "UrlPaths":[ "https://huggingface.co/saddam213/DemoApp/resolve/main/Upscaler/AnimeSharpV2-MoSR-Sharp-2x/model.onnx?download=true"]
+    },
+    {
+      "Id": 15,
+      "Name": "AnimeSharpV2_MoSR_Soft_2x",
+      "SupportedDevices":["CPU", "GPU"],
+      "Channels": 3,
+      "SampleSize": 0,
+      "ScaleFactor": 2,
+      "UrlPaths":[ "https://huggingface.co/saddam213/DemoApp/resolve/main/Upscaler/AnimeSharpV2-MoSR-Soft-2x/model.onnx?download=true"]
+    },
+    {
+      "Id": 16,
+      "Name": "AnimeSharpV2_RPLKSR_Sharp_2x",
+      "SupportedDevices":["CPU", "GPU"],
+      "Channels": 3,
+      "SampleSize": 0,
+      "ScaleFactor": 2,
+      "UrlPaths":[ "https://huggingface.co/saddam213/DemoApp/resolve/main/Upscaler/AnimeSharpV2-RPLKSR-Sharp-2x/model.onnx?download=true"]
+    },
+    {
+      "Id": 17,
+      "Name": "AnimeSharpV2_RPLKSR_Soft_2x",
+      "SupportedDevices":["CPU", "GPU"],
+      "Channels": 3,
+      "SampleSize": 0,
+      "ScaleFactor": 2,
+      "UrlPaths":[ "https://huggingface.co/saddam213/DemoApp/resolve/main/Upscaler/AnimeSharpV2-RPLKSR-Soft-2x/model.onnx?download=true"]
+    },
+    {
+      "Id": 18,
+      "Name": "AnimeSharpV3_2x",
+      "SupportedDevices":["CPU", "GPU"],
+      "Channels": 3,
+      "SampleSize": 0,
+      "ScaleFactor": 2,
+      "UrlPaths":[ "https://huggingface.co/saddam213/DemoApp/resolve/main/Upscaler/AnimeSharpV3-2x/model.onnx?download=true"]
+    },
+    {
+      "Id": 19,
+      "Name": "Swin2SR-RealWorld-BSRGAN-PSN-4x",
+      "SupportedDevices":["CPU", "GPU"],
+      "Channels": 3,
+      "SampleSize": 0,
+      "ScaleFactor": 4,
+      "UrlPaths":[ "https://huggingface.co/saddam213/DemoApp/resolve/main/Upscaler/Swin2SR-RealWorld-BSRGAN-PSN-4x/model.onnx?download=true"]
+    }
+  ],
+  "DiffusionModels": [
+    {
+      "Id": 1,
+      "Name": "Dreamshaper-LCM",
+      "IsDefault": true,
+      "ModelType": "Base",
+      "PipelineType": "LatentConsistency",
+      "IsControlNetSupported":true,
+      "SupportedDevices":["GPU"],
+      "Resolutions": [
+        {
+          "Width": 576,
+          "Height": 896
+        },
+        {
+          "Width": 512,
+          "Height": 768
+        },
+        {
+          "Width": 448,
+          "Height": 640
+        },
+        {
+          "Width": 512,
+          "Height": 512,
+          "IsDefault": true
+        },
+        {
+          "Width": 768,
+          "Height": 768
+        },
+        {
+          "Width": 640,
+          "Height": 448
+        },
+        {
+          "Width": 768,
+          "Height": 512
+        },
+        {
+          "Width": 896,
+          "Height": 576
+        }
+      ],
+      "UrlPaths": [
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/Diffusion/Dreamshaper-LCM/text_encoder/model.onnx?download=true",
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/Diffusion/Dreamshaper-LCM/tokenizer/merges.txt?download=true",
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/Diffusion/Dreamshaper-LCM/tokenizer/vocab.json?download=true",
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/Diffusion/Dreamshaper-LCM/unet/model.onnx?download=true",
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/Diffusion/Dreamshaper-LCM/unet/model.onnx.data?download=true",
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/Diffusion/Dreamshaper-LCM/unet/controlnet.onnx?download=true",
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/Diffusion/Dreamshaper-LCM/vae_decoder/model.onnx?download=true",
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/Diffusion/Dreamshaper-LCM/vae_encoder/model.onnx?download=true"
+      ]
+    },
+    {
+      "Id": 2,
+      "Name": "StableDiffusion-XL",
+      "ModelType": "Base",
+      "PipelineType": "StableDiffusionXL",
+      "IsControlNetSupported":true,
+      "SupportedDevices":["GPU"],
+      "Resolutions": [
+        {
+          "Width": 640,
+          "Height": 1536
+        },
+        {
+          "Width": 768,
+          "Height": 1344
+        },
+        {
+          "Width": 832,
+          "Height": 1280
+        },
+        {
+          "Width": 896,
+          "Height": 1152
+        },
+        {
+          "Width": 768,
+          "Height": 768
+        },
+        {
+          "Width": 1024,
+          "Height": 1024,
+          "IsDefault": true
+        },
+        {
+          "Width": 1152,
+          "Height": 896
+        },
+        {
+          "Width": 1280,
+          "Height": 832
+        },
+        {
+          "Width": 1344,
+          "Height": 768
+        },
+        {
+          "Width": 1536,
+          "Height": 640
+        }
+      ],
+      "UrlPaths": [
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/Diffusion/StableDiffusion-XL/text_encoder/model.onnx?download=true",
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/Diffusion/StableDiffusion-XL/text_encoder_2/model.onnx?download=true",
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/Diffusion/StableDiffusion-XL/text_encoder_2/model.onnx.data?download=true",
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/Diffusion/StableDiffusion-XL/tokenizer/vocab.json?download=true",
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/Diffusion/StableDiffusion-XL/tokenizer/merges.txt?download=true",
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/Diffusion/StableDiffusion-XL/tokenizer_2/vocab.json?download=true",
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/Diffusion/StableDiffusion-XL/tokenizer_2/merges.txt?download=true",
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/Diffusion/StableDiffusion-XL/unet/model.onnx?download=true",
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/Diffusion/StableDiffusion-XL/unet/model.onnx.data?download=true",
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/Diffusion/StableDiffusion-XL/unet/controlnet.onnx?download=true",
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/Diffusion/StableDiffusion-XL/vae_decoder/model.onnx?download=true",
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/Diffusion/StableDiffusion-XL/vae_encoder/model.onnx?download=true",
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/Diffusion/StableDiffusion-XL/README.md?download=true"
+      ]
+    },
+    {
+      "Id": 3,
+      "Name": "Nitro-E",
+      "ModelType": "Turbo",
+      "PipelineType": "Nitro",
+      "IsControlNetSupported":false,
+      "SupportedDevices":["GPU"],
+      "Resolutions": [
+        {
+          "Width": 512,
+          "Height": 512,
+          "IsDefault": true
+        }
+      ],
+      "UrlPaths": [
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/Diffusion/Nitro-E/text_encoder/model.onnx?download=true",
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/Diffusion/Nitro-E/text_encoder/model.onnx.data?download=true",
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/Diffusion/Nitro-E/tokenizer/vocab.json?download=true",
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/Diffusion/Nitro-E/tokenizer/merges.txt?download=true",
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/Diffusion/Nitro-E/tokenizer/tokenizer_config.json?download=true",
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/Diffusion/Nitro-E/transformer/model.onnx?download=true",
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/Diffusion/Nitro-E/transformer/model.onnx.data?download=true",
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/Diffusion/Nitro-E/vae_decoder/model.onnx?download=true",
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/Diffusion/Nitro-E/vae_decoder/model.onnx.data?download=true",
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/Diffusion/Nitro-E/vae_encoder/model.onnx?download=true",
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/Diffusion/Nitro-E/vae_encoder/model.onnx.data?download=true",
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/Diffusion/Nitro-E/README.md?download=true"
+      ]
+    }
+  ],
+  "DiffusionControlNetModels":[
+    {
+      "Id": 100,
+      "Name": "Canny",
+      "PipelineType": "StableDiffusion",
+      "UrlPaths": [
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/ControlNet/StableDiffusion/Canny/model.onnx?download=true"
+      ]
+    },
+    {
+      "Id": 101,
+      "Name": "Depth",
+      "PipelineType": "StableDiffusion",
+      "UrlPaths": [
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/ControlNet/StableDiffusion/Depth/model.onnx?download=true"
+      ]
+    },
+    {
+      "Id": 102,
+      "Name": "Inpaint",
+      "PipelineType": "StableDiffusion",
+      "UrlPaths": [
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/ControlNet/StableDiffusion/Inpaint/model.onnx?download=true"
+      ]
+    },
+    {
+      "Id": 103,
+      "Name": "Instruct",
+      "PipelineType": "StableDiffusion",
+      "UrlPaths": [
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/ControlNet/StableDiffusion/Instruct/model.onnx?download=true"
+      ]
+    },
+    {
+      "Id": 104,
+      "Name": "LineArt",
+      "PipelineType": "StableDiffusion",
+      "UrlPaths": [
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/ControlNet/StableDiffusion/LineArt/model.onnx?download=true"
+      ]
+    },
+    {
+      "Id": 105,
+      "Name": "LineArtAnime",
+      "PipelineType": "StableDiffusion",
+      "UrlPaths": [
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/ControlNet/StableDiffusion/LineArtAnime/model.onnx?download=true"
+      ]
+    },
+    {
+      "Id": 106,
+      "Name": "MLSD",
+      "PipelineType": "StableDiffusion",
+      "UrlPaths": [
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/ControlNet/StableDiffusion/MLSD/model.onnx?download=true"
+      ]
+    },
+    {
+      "Id": 107,
+      "Name": "Normal",
+      "PipelineType": "StableDiffusion",
+      "UrlPaths": [
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/ControlNet/StableDiffusion/Normal/model.onnx?download=true"
+      ]
+    },
+    {
+      "Id": 108,
+      "Name": "OpenPose",
+      "PipelineType": "StableDiffusion",
+      "UrlPaths": [
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/ControlNet/StableDiffusion/OpenPose/model.onnx?download=true"
+      ]
+    },
+    {
+      "Id": 109,
+      "Name": "Scribble",
+      "PipelineType": "StableDiffusion",
+      "UrlPaths": [
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/ControlNet/StableDiffusion/Scribble/model.onnx?download=true"
+      ]
+    },
+    {
+      "Id": 110,
+      "Name": "Segmentation",
+      "PipelineType": "StableDiffusion",
+      "UrlPaths": [
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/ControlNet/StableDiffusion/Segmentation/model.onnx?download=true"
+      ]
+    },
+    {
+      "Id": 111,
+      "Name": "Shuffle",
+      "PipelineType": "StableDiffusion",
+      "UrlPaths": [
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/ControlNet/StableDiffusion/Shuffle/model.onnx?download=true"
+      ]
+    },
+    {
+      "Id": 112,
+      "Name": "SoftEdge",
+      "IsDefault": true,
+      "PipelineType": "StableDiffusion",
+      "UrlPaths": [
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/ControlNet/StableDiffusion/SoftEdge/model.onnx?download=true"
+      ]
+    },
+    {
+      "Id": 113,
+      "Name": "Tile",
+      "PipelineType": "StableDiffusion",
+      "UrlPaths": [
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/ControlNet/StableDiffusion/Tile/model.onnx?download=true"
+      ]
+    },
+    {
+      "Id": 200,
+      "Name": "Canny",
+      "PipelineType": "StableDiffusionXL",
+      "UrlPaths": [
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/ControlNet/StableDiffusionXL/Canny/model.onnx?download=true"
+      ]
+    },
+    {
+      "Id": 201,
+      "Name": "Depth",
+      "PipelineType": "StableDiffusionXL",
+      "UrlPaths": [
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/ControlNet/StableDiffusionXL/Depth/model.onnx?download=true"
+      ]
+    },
+    {
+      "Id": 204,
+      "Name": "LineArt",
+      "PipelineType": "StableDiffusionXL",
+      "UrlPaths": [
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/ControlNet/StableDiffusionXL/LineArt/model.onnx?download=true"
+      ]
+    },
+    {
+      "Id": 205,
+      "Name": "LineArtAnime",
+      "PipelineType": "StableDiffusionXL",
+      "UrlPaths": [
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/ControlNet/StableDiffusionXL/LineArtAnime/model.onnx?download=true"
+      ]
+    },
+    {
+      "Id": 208,
+      "Name": "OpenPose",
+      "PipelineType": "StableDiffusionXL",
+      "UrlPaths": [
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/ControlNet/StableDiffusionXL/OpenPose/model.onnx?download=true"
+      ]
+    },
+    {
+      "Id": 209,
+      "Name": "Scribble",
+      "PipelineType": "StableDiffusionXL",
+      "UrlPaths": [
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/ControlNet/StableDiffusionXL/Scribble/model.onnx?download=true"
+      ]
+    },
+    {
+      "Id": 212,
+      "Name": "SoftEdge",
+      "PipelineType": "StableDiffusionXL",
+      "UrlPaths": [
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/ControlNet/StableDiffusionXL/SoftEdge/model.onnx?download=true"
+      ]
+    },
+    {
+      "Id": 213,
+      "Name": "Tile",
+      "PipelineType": "StableDiffusionXL",
+      "UrlPaths": [
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/ControlNet/StableDiffusionXL/Tile/model.onnx?download=true"
+      ]
+    },
+    {
+      "Id": 214,
+      "Name": "Union",
+      "IsDefault": true,
+      "PipelineType": "StableDiffusionXL",
+      "UrlPaths": [
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/ControlNet/StableDiffusionXL/Tile/model.onnx?download=true"
+      ]
+    },
+    {
+      "Id": 300,
+      "Name": "Canny",
+      "PipelineType": "StableDiffusion3",
+      "UrlPaths": [
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/ControlNet/StableDiffusion3/Canny/model.onnx?download=true"
+      ]
+    },
+    {
+      "Id": 301,
+      "Name": "Depth",
+      "PipelineType": "StableDiffusion3",
+      "UrlPaths": [
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/ControlNet/StableDiffusion3/Depth/model.onnx?download=true"
+      ]
+    },
+    {
+      "Id": 302,
+      "Name": "Inpaint",
+      "PipelineType": "StableDiffusion3",
+      "UrlPaths": [
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/ControlNet/StableDiffusion3/Inpaint/model.onnx?download=true"
+      ]
+    },
+    {
+      "Id": 308,
+      "Name": "OpenPose",
+      "PipelineType": "StableDiffusion3",
+      "UrlPaths": [
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/ControlNet/StableDiffusion3/OpenPose/model.onnx?download=true"
+      ]
+    },
+    {
+      "Id": 313,
+      "Name": "Tile",
+      "IsDefault": true,
+      "PipelineType": "StableDiffusion3",
+      "UrlPaths": [
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/ControlNet/StableDiffusion3/Tile/model.onnx?download=true"
+      ]
+    }
+  ],
+  "DetectModels": [
+    {
+      "Id": 1,
+      "Name": "Florence2 Base",
+      "IsDefault": true,
+      "SupportedDevices":["CPU", "GPU"],
+      "Type": "Base",
+      "UrlPaths": [
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/Detect/Florence2-Base/decoder_model_merged.onnx?download=true",
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/Detect/Florence2-Base/embed_tokens.onnx?download=true",
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/Detect/Florence2-Base/encoder_model.onnx?download=true",
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/Detect/Florence2-Base/vision_encoder.onnx?download=true",
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/Detect/Florence2-Base/merges.txt?download=true",
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/Detect/Florence2-Base/tokenizer_config.json?download=true",
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/Detect/Florence2-Base/vocab.json?download=true"
+      ]
+    },
+    {
+      "Id": 2,
+      "Name": "Florence2 Large",
+      "SupportedDevices":["CPU", "GPU"],
+      "Type": "Large",
+      "UrlPaths": [
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/Detect/Florence2-Large/decoder_model_merged.onnx?download=true",
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/Detect/Florence2-Large/embed_tokens.onnx?download=true",
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/Detect/Florence2-Large/encoder_model.onnx?download=true",
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/Detect/Florence2-Large/vision_encoder.onnx?download=true",
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/Detect/Florence2-Large/merges.txt?download=true",
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/Detect/Florence2-Large/tokenizer_config.json?download=true",
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/Detect/Florence2-Large/vocab.json?download=true"
+      ]
+    }
+  ],
+  "TextModels": [
+    {
+      "Id": 1,
+      "Name": "Text Summary",
+      "IsDefault": true,
+      "SupportedDevices":["CPU", "GPU"],
+      "Type": "Summary",
+      "MinLength": 20,
+      "MaxLength": 512,
+      "Prefixes": [ "summarize: ", "translate English to German: ", "translate English to French: ", "translate English to Romanian: " ],
+      "UrlPaths": [
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/Text/TextSummary/config.json?download=true",
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/Text/TextSummary/decoder_model_merged.onnx?download=true",
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/Text/TextSummary/encoder_model.onnx?download=true",
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/Text/TextSummary/spiece.model?download=true",
+        "https://huggingface.co/saddam213/DemoApp/resolve/main/Text/TextSummary/tokenizer.json?download=true"
+      ]
+    }
+  ],
+  "ExtractorModels": [
+    {
+      "Id": 1,
+      "Name": "Canny",
+      "Type": "Default",
+      "SupportedDevices":["CPU", "GPU"],
+      "Channels": 3,
+      "SampleSize": 0,
+      "OutputChannels": 1,
+      "UrlPaths":[ "https://huggingface.co/saddam213/DemoApp/resolve/main/Extractor/Canny/model.onnx?download=true"]
+    },
+    {
+      "Id": 2,
+      "Name": "SoftEdge",
+      "Type": "Default",
+      "IsDefault": true,
+      "SupportedDevices":["CPU", "GPU"],
+      "Channels": 3,
+      "SampleSize": 0,
+      "OutputChannels": 1,
+      "UrlPaths":[ "https://huggingface.co/saddam213/DemoApp/resolve/main/Extractor/SoftEdge/model.onnx?download=true"]
+    },
+    {
+      "Id": 3,
+      "Name": "Depth",
+      "Type": "Default",
+      "SupportedDevices":["CPU", "GPU"],
+      "Channels": 3,
+      "SampleSize": 0,
+      "OutputChannels": 1,
+      "OutputNormalization": "MinMaxOneToOne",
+      "IsDynamicOutput": true,
+      "UrlPaths":[ "https://huggingface.co/saddam213/DemoApp/resolve/main/Extractor/Depth/model.onnx?download=true"]
+    },
+    {
+      "Id": 4,
+      "Name": "LineDrawing",
+      "Type": "Default",
+      "SupportedDevices":["CPU", "GPU"],
+      "Channels": 3,
+      "SampleSize": 0,
+      "OutputChannels": 1,
+      "UrlPaths":[ "https://huggingface.co/saddam213/DemoApp/resolve/main/Extractor/LineDrawing/model.onnx?download=true"]
+    },
+    {
+      "Id": 5,
+      "Name": "DepthAnything-Small",
+      "Type": "Default",
+      "SupportedDevices":["CPU", "GPU"],
+      "Channels": 3,
+      "SampleSize": 0,
+      "OutputChannels": 1,
+      "IsDynamicOutput": true,
+      "OutputNormalization": "MinMaxOneToOne",
+      "UrlPaths":[ "https://huggingface.co/saddam213/DemoApp/resolve/main/Extractor/DepthAnything-Small/model.onnx?download=true"]
+    },
+    {
+      "Id": 6,
+      "Name": "DepthAnything-Base",
+      "Type": "Default",
+      "SupportedDevices":["CPU", "GPU"],
+      "Channels": 3,
+      "SampleSize": 0,
+      "OutputChannels": 1,
+      "IsDynamicOutput": true,
+      "OutputNormalization": "MinMaxOneToOne",
+      "UrlPaths":[ "https://huggingface.co/saddam213/DemoApp/resolve/main/Extractor/DepthAnything-Base/model.onnx?download=true"]
+    },
+    {
+      "Id": 8,
+      "Name": "DepthAnything-Large",
+      "Type": "Default",
+      "SupportedDevices":["CPU", "GPU"],
+      "Channels": 3,
+      "SampleSize": 0,
+      "OutputChannels": 1,
+      "IsDynamicOutput": true,
+      "OutputNormalization": "MinMaxOneToOne",
+      "UrlPaths":[ "https://huggingface.co/saddam213/DemoApp/resolve/main/Extractor/DepthAnything-Large/model.onnx?download=true"]
+    },
+    {
+      "Id": 9,
+      "Name": "BiRefNet",
+      "Type": "Background",
+      "SupportedDevices":["CPU", "GPU"],
+      "Channels": 3,
+      "SampleSize": 1024,
+      "OutputChannels": 1,
+      "UrlPaths":[ "https://huggingface.co/saddam213/DemoApp/resolve/main/Extractor/BiRefNet/model.onnx?download=true"]
+    },
+    {
+      "Id": 10,
+      "Name": "RMBG 1.4",
+      "Type": "Background",
+      "SupportedDevices":["CPU", "GPU"],
+      "IsDefault": true,
+      "Channels": 3,
+      "SampleSize": 1024,
+      "OutputChannels": 1,
+      "UrlPaths":[ "https://huggingface.co/saddam213/DemoApp/resolve/main/Extractor/RMBGv1.4/model.onnx?download=true"]
+    },
+    {
+      "Id": 11,
+      "Name": "RMBG 2.0",
+      "Type": "Background",
+      "SupportedDevices":["CPU", "GPU"],
+      "Channels": 3,
+      "SampleSize": 1024,
+      "OutputChannels": 1,
+      "UrlPaths":[ "https://huggingface.co/saddam213/DemoApp/resolve/main/Extractor/RMBGv2.0/model.onnx?download=true"]
+    },
+    {
+      "Id": 12,
+      "Name": "RTMO - Body7",
+      "Type": "Pose",
+      "SupportedDevices":["CPU", "GPU"],
+      "IsDefault": true,
+      "Channels": 3,
+      "SampleSize": 640,
+      "UrlPaths":[ "https://huggingface.co/saddam213/DemoApp/resolve/main/Extractor/Pose-Body7/model.onnx?download=true"]
+    },
+    {
+      "Id": 13,
+      "Name": "RTMO - Coco",
+      "Type": "Pose",
+      "SupportedDevices":["CPU", "GPU"],
+      "Channels": 3,
+      "SampleSize": 640,
+      "UrlPaths":[ "https://huggingface.co/saddam213/DemoApp/resolve/main/Extractor/Pose-Coco/model.onnx?download=true"]
+    }
+  ]
+}

@@ -1,0 +1,123 @@
+﻿<Views:ViewBase x:Class="DemoApp.Views.ImageUpscaleView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:local="clr-namespace:DemoApp.Views"
+    xmlns:CommonControls="clr-namespace:TensorStack.WPF.Controls;assembly=TensorStack.WPF"
+    xmlns:Controls="clr-namespace:DemoApp.Controls"
+    xmlns:Views="clr-namespace:DemoApp.Views">
+    <Grid DataContext="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ImageUpscaleView}}}" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition MinWidth="360"/>
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="4*" />
+            </Grid.ColumnDefinitions>
+
+
+            <!--***Left Panel***-->
+            <Grid Grid.Column="0">
+                <Border Style="{StaticResource BorderPanel}" Margin="4">
+                    <DockPanel x:Name="LeftPanelContainer" Margin="4">
+
+                        <!--Model Selector-->
+                        <StackPanel DockPanel.Dock="Top" IsEnabled="{Binding UpscaleService.IsLoading, Converter={StaticResource InverseBoolConverter}}">
+                            <Controls:UpscaleModelControl 
+                                Settings="{Binding Settings, Mode=OneWay}" 
+                                CurrentPipeline="{Binding CurrentPipeline, Mode=TwoWay}"
+                                SelectionChanged="SelectedPipelineChanged"/>
+                        </StackPanel>
+
+                        <!--Execute/Cancel-->
+                        <UniformGrid DockPanel.Dock="Bottom" Columns="2" Height="30">
+                            <Button Content="Cancel" Command="{Binding CancelCommand}" />
+                            <Button Content="Upscale" Command="{Binding ExecuteCommand}" />
+                        </UniformGrid>
+
+
+                        <StackPanel>
+
+                            <!--Input Image-->
+                            <Border Margin="0,15,0,15"
+                                VerticalAlignment="Top"
+                                Style="{StaticResource ImageDropZoneStyle}"
+                                Width="{Binding ActualWidth,ElementName=LeftPanelContainer}"
+                                Height="{Binding ActualWidth,ElementName=LeftPanelContainer}"
+                                MaxHeight="{Binding ActualWidth,ElementName=LeftPanelContainer}">
+                                <CommonControls:ImageElement
+                                    Source="{Binding SourceImage, Mode=TwoWay}"
+                                    IsLoadEnabled="True"
+                                    IsLoadOverlayEnabled="False" 
+                                    IsSaveEnabled="False" />
+                            </Border>
+
+                            <!--Upscale Options-->
+                            <Controls:UpscaleInputControl Options="{Binding Options}" Pipeline="{Binding CurrentPipeline}" />
+     
+                        </StackPanel>
+                    </DockPanel>
+                </Border>
+            </Grid>
+
+
+            <!--GridSplitter-->
+            <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" Width="5" Opacity=".4" Margin="0,20" />
+
+
+            <!--***Middle Panel***-->
+            <Grid Grid.Column="2" Grid.Row="0" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="7*" />
+                    <ColumnDefinition Width="5" />
+                    <ColumnDefinition Width="0" />
+                </Grid.ColumnDefinitions>
+
+
+                <!--Content-->
+                <Grid Grid.Column="0" >
+                    <Border Style="{StaticResource BorderPanel}" Margin="4">
+                        <Grid Margin="20" >
+                            <CommonControls:ImageElement 
+                                SplitterVisibility="Auto"
+                                SplitterPosition="Source"
+                                SplitterDirection="LeftToRight"
+                                Progress="{Binding Progress}"
+                                Source="{Binding ResultImage, Mode=TwoWay}" 
+                                OverlaySource="{Binding CompareImage, Mode=TwoWay}" 
+                                IsLoadEnabled="False" 
+                                IsLoadOverlayEnabled="False"/>
+                        </Grid>
+                    </Border>
+                </Grid>
+
+
+                <!--GridSplitter-->
+                <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" Width="5" Opacity=".4" Margin="0,20"/>
+
+
+                <!--***Right Panel***-->
+                <Grid Grid.Column="2" >
+                    <Border Style="{StaticResource BorderPanel}" Margin="4">
+                        <!--Debug Panel-->
+                        <StackPanel DockPanel.Dock="Bottom" Margin="4">
+                            <TextBlock Text="{Binding CurrentPipeline.Device.Type, StringFormat={}Device: {0}}" />
+                            <TextBlock Text="{Binding CurrentPipeline.Device.DeviceId, StringFormat={}DeviceId: {0}}" />
+                            <TextBlock Text="{Binding CurrentPipeline.UpscaleModel.Name, StringFormat={}Model: {0}}" />
+                            <TextBlock Text="{Binding UpscaleService.IsLoaded, StringFormat={}IsLoaded: {0}}" />
+                            <TextBlock Text="{Binding UpscaleService.IsLoading, StringFormat={}IsLoading: {0}}" />
+                            <TextBlock Text="{Binding UpscaleService.IsExecuting, StringFormat={}IsExecuting: {0}}" />
+                            <TextBlock Text="{Binding UpscaleService.CanCancel, StringFormat={}CanCancel: {0}}" />
+                        </StackPanel>
+                    </Border>
+                </Grid>
+
+            </Grid>
+        </Grid>
+
+    </Grid>
+</Views:ViewBase>

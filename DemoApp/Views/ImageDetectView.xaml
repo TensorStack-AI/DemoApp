@@ -1,0 +1,311 @@
+﻿<Views:ViewBase x:Class="DemoApp.Views.ImageDetectView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    xmlns:scm="clr-namespace:System.ComponentModel;assembly=WindowsBase"
+    xmlns:local="clr-namespace:DemoApp.Views"
+    xmlns:CommonControls="clr-namespace:TensorStack.WPF.Controls;assembly=TensorStack.WPF"
+    xmlns:Florence="clr-namespace:TensorStack.TextGeneration.Pipelines.Florence;assembly=TensorStack.TextGeneration"
+    xmlns:Controls="clr-namespace:DemoApp.Controls"
+    xmlns:Views="clr-namespace:DemoApp.Views"
+    mc:Ignorable="d" 
+    d:DesignHeight="450"
+    d:DesignWidth="800">
+
+    <Grid DataContext="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:ImageDetectView}}}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="6*" />
+            </Grid.ColumnDefinitions>
+
+
+            <!--***Left Panel***-->
+            <Grid Grid.Column="0">
+                <Border Style="{StaticResource BorderPanel}" Margin="4">
+                    <DockPanel x:Name="LeftPanelContainer" Margin="4">
+
+                        <!--Model Selector-->
+                        <StackPanel DockPanel.Dock="Top" IsEnabled="{Binding DetectService.IsLoading, Converter={StaticResource InverseBoolConverter}}">
+                            <Controls:DetectModelControl 
+                                Settings="{Binding Settings, Mode=OneWay}" 
+                                CurrentPipeline="{Binding CurrentPipeline, Mode=TwoWay}"
+                                SelectionChanged="SelectedPipelineChanged"/>
+                        </StackPanel>
+
+                        <!--Advanced-->
+                        <StackPanel DockPanel.Dock="Bottom" >
+                            <TextBlock Text="Advanced Options"  Style="{StaticResource FieldTextBlockStyle}"/>
+                            <UniformGrid Columns="4">
+                                <StackPanel>
+                                    <TextBlock Text="Beams" Style="{StaticResource FieldTextBlockStyle}" />
+                                    <TextBox Text="{Binding Beams}" />
+                                </StackPanel>
+                                <StackPanel>
+                                    <TextBlock Text="Seed" Style="{StaticResource FieldTextBlockStyle}" />
+                                    <TextBox Text="{Binding Seed}" />
+                                </StackPanel>
+                                <StackPanel>
+                                    <TextBlock Text="TopK" Style="{StaticResource FieldTextBlockStyle}" />
+                                    <TextBox Text="{Binding TopK}" />
+                                </StackPanel>
+                                <StackPanel>
+                                    <TextBlock Text="TopP" Style="{StaticResource FieldTextBlockStyle}" />
+                                    <TextBox Text="{Binding TopP}" />
+                                </StackPanel>
+                                <StackPanel>
+                                    <TextBlock Text="Temperature" Style="{StaticResource FieldTextBlockStyle}" />
+                                    <TextBox Text="{Binding Temperature}" />
+                                </StackPanel>
+                                <StackPanel>
+                                    <TextBlock Text="LengthPenalty" Style="{StaticResource FieldTextBlockStyle}" />
+                                    <TextBox Text="{Binding LengthPenalty}" />
+                                </StackPanel>
+                                <StackPanel>
+                                    <TextBlock Text="DiversityLength" Style="{StaticResource FieldTextBlockStyle}" />
+                                    <TextBox Text="{Binding DiversityLength}" />
+                                </StackPanel>
+                            </UniformGrid>
+                        </StackPanel>
+
+
+
+                        <StackPanel >
+
+                            <!--Captions-->
+                            <UniformGrid Columns="2" Margin="0,10,0,0">
+                                <!--<Button Content="Basic" Command="{Binding ExecuteCommand}" Height="28">
+                                    <Button.CommandParameter>
+                                        <Florence:TaskType>CAPTION</Florence:TaskType>
+                                    </Button.CommandParameter>
+                                </Button>
+                                <Button Content="Normal" Command="{Binding ExecuteCommand}" >
+                                    <Button.CommandParameter>
+                                        <Florence:TaskType>DETAILED_CAPTION</Florence:TaskType>
+                                    </Button.CommandParameter>
+                                </Button>-->
+                                <Button Content="Image Caption" Command="{Binding ExecuteCommand}"  Height="28">
+                                    <Button.CommandParameter>
+                                        <Florence:TaskType>MORE_DETAILED_CAPTION</Florence:TaskType>
+                                    </Button.CommandParameter>
+                                </Button>
+                                <Button Content="Text Detection" Command="{Binding ExecuteCommand}" Height="28">
+                                    <Button.CommandParameter>
+                                        <Florence:TaskType>OCR_WITH_REGION</Florence:TaskType>
+                                    </Button.CommandParameter>
+                                </Button>
+                            </UniformGrid>
+
+
+
+
+                            <!--Object Detection-->
+                            <TextBlock Text="Object Detection" Style="{StaticResource FieldTextBlockStyle}" Margin="0, 10,0,0"/>
+                            <UniformGrid Columns="2">
+                                <Button Content="Object Caption" Command="{Binding ExecuteCommand}" Height="28" >
+                                    <Button.CommandParameter>
+                                        <Florence:TaskType>DENSE_REGION_CAPTION</Florence:TaskType>
+                                    </Button.CommandParameter>
+                                </Button>
+                                <Button Content="Detect Objects" Command="{Binding ExecuteCommand}"  >
+                                    <Button.CommandParameter>
+                                        <Florence:TaskType>OD</Florence:TaskType>
+                                    </Button.CommandParameter>
+                                </Button>
+                                <!--<Button Content="Regions" Command="{Binding ExecuteCommand}"  >
+                                    <Button.CommandParameter>
+                                        <Florence:TaskType>REGION_PROPOSAL</Florence:TaskType>
+                                    </Button.CommandParameter>
+                                </Button>-->
+                            </UniformGrid>
+
+                            <!--SearchObject-->
+                            <StackPanel>
+                                <TextBlock Text="Object Search" Style="{StaticResource FieldTextBlockStyle}" Margin="0, 10,0,0" />
+                                <DockPanel>
+                                    <Button DockPanel.Dock="Right" Content="Search" Command="{Binding ExecuteCommand}"  Width="60" >
+                                        <Button.CommandParameter>
+                                            <Florence:TaskType>OPEN_VOCABULARY_DETECTION</Florence:TaskType>
+                                        </Button.CommandParameter>
+                                    </Button>
+                                    <TextBox Text="{Binding SearchObjectText}" />
+                                </DockPanel>
+                            </StackPanel>
+
+
+                            <!--SearchPhrase-->
+                            <StackPanel>
+                                <TextBlock Text="Phrase Grounding" Style="{StaticResource FieldTextBlockStyle}" Margin="0,10,0,0" />
+                                <DockPanel>
+                                    <Button DockPanel.Dock="Right" Content="Search" Command="{Binding ExecuteCommand}" Width="60" >
+                                        <Button.CommandParameter>
+                                            <Florence:TaskType>CAPTION_TO_PHRASE_GROUNDING</Florence:TaskType>
+                                        </Button.CommandParameter>
+                                    </Button>
+                                    <TextBox Text="{Binding SearchPhraseText}" TextWrapping="Wrap" Height="40"/>
+                                </DockPanel>
+                            </StackPanel>
+
+                            <!--SearchMask-->
+                            <StackPanel>
+                                <TextBlock Text="Mask Object" Style="{StaticResource FieldTextBlockStyle}" Margin="0, 10,0,0" />
+                                <DockPanel>
+                                    <Button DockPanel.Dock="Right" Content="Mask" Command="{Binding ExecuteCommand}" Width="60" >
+                                        <Button.CommandParameter>
+                                            <Florence:TaskType>REFERRING_EXPRESSION_SEGMENTATION</Florence:TaskType>
+                                        </Button.CommandParameter>
+                                    </Button>
+                                    <TextBox Text="{Binding SearchMaskText}" />
+                                </DockPanel>
+                            </StackPanel>
+
+
+
+                            <!--Regions-->
+                            <StackPanel>
+                                <TextBlock Text="Selected Area" Style="{StaticResource FieldTextBlockStyle}" Margin="0,10,0,0" />
+                                <UniformGrid Columns="4">
+                                    <TextBlock Text="PosX" Style="{StaticResource FieldTextBlockStyle}" />
+                                    <TextBlock Text="PosY" Style="{StaticResource FieldTextBlockStyle}"/>
+                                    <TextBlock Text="Width" Style="{StaticResource FieldTextBlockStyle}"/>
+                                    <TextBlock Text="Height" Style="{StaticResource FieldTextBlockStyle}"/>
+                                </UniformGrid>
+
+                                <UniformGrid Columns="4" DataContext="{Binding ElementName=DetectCanvas}">
+                                    <TextBox Text="{Binding RegionX}"/>
+                                    <TextBox Text="{Binding RegionY}"/>
+                                    <TextBox Text="{Binding RegionW}"/>
+                                    <TextBox Text="{Binding RegionH}"/>
+                                </UniformGrid>
+
+                                <UniformGrid Columns="2">
+                                    <Button DockPanel.Dock="Right" Content="Text Detection" Command="{Binding ExecuteCommand}"  Height="24">
+                                        <Button.CommandParameter>
+                                            <Florence:TaskType>REGION_TO_OCR</Florence:TaskType>
+                                        </Button.CommandParameter>
+                                    </Button>
+                                    <Button DockPanel.Dock="Right" Content="Categorize" Command="{Binding ExecuteCommand}"  >
+                                        <Button.CommandParameter>
+                                            <Florence:TaskType>REGION_TO_CATEGORY</Florence:TaskType>
+                                        </Button.CommandParameter>
+                                    </Button>
+                                    <Button DockPanel.Dock="Right" Content="Caption Area" Command="{Binding ExecuteCommand}"  >
+                                        <Button.CommandParameter>
+                                            <Florence:TaskType>REGION_TO_DESCRIPTION</Florence:TaskType>
+                                        </Button.CommandParameter>
+                                    </Button>
+
+                                    <Button DockPanel.Dock="Right" Content="Mask Area" Command="{Binding ExecuteCommand}"  >
+                                        <Button.CommandParameter>
+                                            <Florence:TaskType>REGION_TO_SEGMENTATION</Florence:TaskType>
+                                        </Button.CommandParameter>
+                                    </Button>
+                                </UniformGrid>
+                            </StackPanel>
+
+
+                            <StackPanel>
+                                <TextBlock Text="Output Options" Style="{StaticResource FieldTextBlockStyle}" Margin="0,10,0,0"/>
+                                <CheckBox Content="Mask Results" IsChecked="{Binding OverlayMaskEnabled, ElementName=DetectCanvas}"  Margin="0,4,0,0"/>
+                                <CheckBox Content="Document Mode" IsChecked="{Binding IsTextDocumentMode, ElementName=DetectCanvas}"  Margin="0,4,0,0"/>
+                            </StackPanel>
+
+
+                        </StackPanel>
+
+
+
+                    </DockPanel>
+                </Border>
+            </Grid>
+
+
+            <!--GridSplitter-->
+            <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" Width="5" Opacity=".4" Margin="0,20" />
+
+
+            <!--***Middle Panel***-->
+            <Grid Grid.Column="2" Grid.Row="0" >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="7*" />
+                    <ColumnDefinition Width="5" />
+                    <ColumnDefinition Width="3*" />
+                </Grid.ColumnDefinitions>
+
+
+                <!--Content-->
+                <Grid Grid.Column="0" >
+                    <Border Style="{StaticResource BorderPanel}" Margin="4">
+                        <Border Margin="20" Style="{StaticResource ImageDropZoneStyle}">
+                            <Controls:OverlayCanvasControl x:Name="DetectCanvas" Source="{Binding SourceImage, Mode=TwoWay}" Progress="{Binding Progress}"/>
+                        </Border>
+                    </Border>
+                </Grid>
+
+
+                <!--GridSplitter-->
+                <GridSplitter Grid.Column="1" HorizontalAlignment="Stretch" Width="5" Opacity=".4" Margin="0,20"/>
+
+
+                <!--***Right Panel***-->
+                <Grid Grid.Column="2" >
+                    <Border Style="{StaticResource BorderPanel}" Margin="4">
+                        <!--Debug Panel-->
+                        <DockPanel Margin="4">
+
+                            <StackPanel DockPanel.Dock="Top">
+                                <TextBlock Text="Caption" Style="{StaticResource FieldTextBlockStyle}" />
+                                <TextBox Text="{Binding CaptionResult}" Height="150" TextWrapping="Wrap" Style="{StaticResource TextBlockStyle}">
+                                </TextBox>
+
+                            </StackPanel>
+
+
+
+
+                            <!--Result List-->
+                            <DockPanel >
+                                <TextBlock DockPanel.Dock="Top" Text="Overlays" Style="{StaticResource FieldTextBlockStyle}" Margin="3,2,0,0"/>
+                                <Border DockPanel.Dock="Top" BorderBrush="{StaticResource ControlDefaultBorderBrush}" BorderThickness="0,1,0,0" Margin="3,1"  />
+                                <ScrollViewer HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto" Margin="0,4,0,0">
+                                    <ListBox DockPanel.Dock="Top" ItemsSource="{Binding}" SelectedItem="{Binding SelectedOverlay, ElementName=DetectCanvas, Mode=TwoWay}"  Margin="0,3,0,0" Background="Transparent" BorderThickness="0">
+                                        <ItemsControl.DataContext>
+                                            <CollectionViewSource Source="{Binding Overlays, ElementName=DetectCanvas}">
+                                                <CollectionViewSource.SortDescriptions>
+                                                    <scm:SortDescription PropertyName="Count" Direction="Descending"  />
+                                                    <scm:SortDescription PropertyName="Index" Direction="Ascending"  />
+                                                </CollectionViewSource.SortDescriptions>
+                                            </CollectionViewSource>
+                                        </ItemsControl.DataContext>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <DockPanel Margin="0,0,0,2">
+                                                    <UniformGrid DockPanel.Dock="Left" Columns="3">
+                                                        <Rectangle Fill="{Binding ColorHex}" Width="16" Height="16" VerticalAlignment="Top" Margin="0,1,0,0"/>
+                                                        <CheckBox IsChecked="{Binding IsEnabled}" Margin="1,0,0,0" VerticalAlignment="Top" Command="{Binding OverlayEnableCommand, ElementName=DetectCanvas}" CommandParameter="{Binding}"/>
+                                                        <TextBlock Text="{Binding Count, Mode=OneWay, StringFormat={}{0}}" FontWeight="SemiBold" TextAlignment="Center" HorizontalAlignment="Left" VerticalAlignment="Top" Height="16" Width="17" Margin="0,1,0,0" Background="{StaticResource CheckBoxBackground}" />
+                                                    </UniformGrid>
+                                                    <TextBox Text="{Binding Text, Mode=OneWay}" Style="{StaticResource TextBlockStyle}" TextWrapping="Wrap" />
+                                                </DockPanel>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ListBox>
+                                </ScrollViewer>
+                            </DockPanel>
+
+
+                        </DockPanel>
+                    </Border>
+                </Grid>
+
+            </Grid>
+        </Grid>
+
+    </Grid>
+</Views:ViewBase>
