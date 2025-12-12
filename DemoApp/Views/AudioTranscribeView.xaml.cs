@@ -15,9 +15,9 @@ using TensorStack.WPF.Services;
 namespace DemoApp.Views
 {
     /// <summary>
-    /// Interaction logic for AudioWhisperView.xaml
+    /// Interaction logic for AudioTranscribeView.xaml
     /// </summary>
-    public partial class AudioWhisperView : ViewBase
+    public partial class AudioTranscribeView : ViewBase
     {
         private PipelineModel _currentPipeline;
         private int _topK = 50;
@@ -36,25 +36,24 @@ namespace DemoApp.Views
         private TaskType _selectedTask = TaskType.Transcribe;
         private LanguageType _selectedLanguage = LanguageType.EN;
 
-        public AudioWhisperView(Settings settings, NavigationService navigationService, IHistoryService historyService, IWhisperService whisperService)
+        public AudioTranscribeView(Settings settings, NavigationService navigationService, IHistoryService historyService, ITranscribeService transcribeService)
             : base(settings, navigationService, historyService)
         {
-
-            TextService = whisperService;
+            TranscribeService = transcribeService;
             ExecuteCommand = new AsyncRelayCommand(ExecuteAsync, CanExecute);
             CancelCommand = new AsyncRelayCommand(CancelAsync, CanCancel);
             Prefixes = new ObservableCollection<string>();
-            Results = new ObservableCollection<WhisperResult>();
+            Results = new ObservableCollection<TranscribeResult>();
             InitializeComponent();
         }
 
-        public override int Id => (int)View.AudioDefault;
-        public IWhisperService TextService { get; }
+        public override int Id => (int)View.AudioTranscribe;
+        public ITranscribeService TranscribeService { get; }
         public AsyncRelayCommand ExecuteCommand { get; }
         public AsyncRelayCommand CancelCommand { get; }
         public ObservableCollection<string> Prefixes { get; }
-        public ObservableCollection<WhisperResult> Results { get; }
-        public WhisperResult Result => Results?.FirstOrDefault();
+        public ObservableCollection<TranscribeResult> Results { get; }
+        public TranscribeResult Result => Results?.FirstOrDefault();
 
         public PipelineModel CurrentPipeline
         {
@@ -154,7 +153,7 @@ namespace DemoApp.Views
 
         public override Task OpenAsync(OpenViewArgs args = null)
         {
-            CurrentPipeline = TextService.Pipeline;
+            CurrentPipeline = TranscribeService.Pipeline;
             return base.OpenAsync(args);
         }
 
@@ -165,8 +164,7 @@ namespace DemoApp.Views
             Progress.Indeterminate("Generating Results...");
             try
             {
-                // Run Summary
-                var results = await TextService.ExecuteAsync(new WhisperRequest
+                var results = await TranscribeService.ExecuteAsync(new TranscribeRequest
                 {
                     Beams = _beams,
                     TopK = _topK,
@@ -187,7 +185,7 @@ namespace DemoApp.Views
                 Results.Clear();
                 foreach (var result in results)
                 {
-                    Results.Add(new WhisperResult($"Beam {result.Beam}", result.Result, result.PenaltyScore));
+                    Results.Add(new TranscribeResult($"Beam {result.Beam}", result.Result, result.PenaltyScore));
                 }
                 SelectedBeam = 0;
 
@@ -210,49 +208,40 @@ namespace DemoApp.Views
 
         private bool CanExecute()
         {
-            return _audioInput is not null && TextService.IsLoaded && !TextService.IsExecuting;
+            return _audioInput is not null && TranscribeService.IsLoaded && !TranscribeService.IsExecuting;
         }
 
 
         private async Task CancelAsync()
         {
-            await TextService.CancelAsync();
+            await TranscribeService.CancelAsync();
         }
 
 
         private bool CanCancel()
         {
-            return TextService.CanCancel;
+            return TranscribeService.CanCancel;
         }
 
 
         private async Task LoadPipelineAsync()
         {
-            if (_currentPipeline?.TextModel == null)
+            if (_currentPipeline?.TranscribeModel == null)
             {
-                await TextService.UnloadAsync();
+                await TranscribeService.UnloadAsync();
                 return;
             }
 
             var timestamp = Stopwatch.GetTimestamp();
             Progress.Indeterminate();
 
-            await TextService.LoadAsync(_currentPipeline);
-            Settings.SetDefault(_currentPipeline.TextModel);
+            await TranscribeService.LoadAsync(_currentPipeline);
+            Settings.SetDefault(_currentPipeline.TranscribeModel);
 
-            var model = _currentPipeline.TextModel;
+            var model = _currentPipeline.TranscribeModel;
             MinLength = model.MinLength;
             MaxLength = model.MaxLength;
             DiversityLength = model.MinLength;
-            //if (model.Prefixes != null)
-            //{
-            //    foreach (var prefix in model.Prefixes)
-            //    {
-            //        Prefixes.Add(prefix);
-            //    }
-            //    SelectedPrefix = Prefixes.FirstOrDefault();
-            //}
-
             Progress.Clear();
             Debug.WriteLine($"[{GetType().Name}] [LoadAsync] - {Stopwatch.GetElapsedTime(timestamp)}");
         }
@@ -265,5 +254,5 @@ namespace DemoApp.Views
 
     }
 
-    public record WhisperResult(string Header, string Content, float Score);
+    public record TranscribeResult(string Header, string Content, float Score);
 }

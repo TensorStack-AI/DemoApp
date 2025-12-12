@@ -31,7 +31,6 @@
                             <Controls:TextModelControl 
                                 Settings="{Binding Settings, Mode=OneWay}" 
                                 CurrentPipeline="{Binding CurrentPipeline, Mode=TwoWay}"
-                                ModelType="Summary"
                                 SelectionChanged="SelectedPipelineChanged"/>
                         </StackPanel>
 

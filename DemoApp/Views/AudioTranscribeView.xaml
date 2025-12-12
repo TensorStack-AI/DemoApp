@@ -1,4 +1,4 @@
-﻿<Views:ViewBase x:Class="DemoApp.Views.AudioWhisperView"
+﻿<Views:ViewBase x:Class="DemoApp.Views.AudioTranscribeView"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -25,7 +25,7 @@
 
     </Views:ViewBase.Resources>
 
-    <Grid DataContext="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:AudioWhisperView}}}">
+    <Grid DataContext="{Binding RelativeSource={RelativeSource AncestorType={x:Type local:AudioTranscribeView}}}">
 
         <Grid.RowDefinitions>
             <RowDefinition Height="1*" />
@@ -45,11 +45,10 @@
                     <DockPanel x:Name="LeftPanelContainer" Margin="4" LastChildFill="False">
 
                         <!--Model Selector-->
-                        <StackPanel DockPanel.Dock="Top" IsEnabled="{Binding TextService.IsLoading, Converter={StaticResource InverseBoolConverter}}">
-                            <Controls:TextModelControl 
+                        <StackPanel DockPanel.Dock="Top" IsEnabled="{Binding TranscribeService.IsLoading, Converter={StaticResource InverseBoolConverter}}">
+                            <Controls:TranscribeModelControl 
                                 Settings="{Binding Settings, Mode=OneWay}" 
                                 CurrentPipeline="{Binding CurrentPipeline, Mode=TwoWay}"
-                                ModelType="Whisper"
                                 SelectionChanged="SelectedPipelineChanged"/>
                         </StackPanel>
 
@@ -60,7 +59,7 @@
                         </StackPanel>
 
                         <!--Advanced-->
-                        <StackPanel DockPanel.Dock="Top" IsEnabled="{Binding TextService.IsLoaded}">
+                        <StackPanel DockPanel.Dock="Top" IsEnabled="{Binding TranscribeService.IsLoaded}">
                             <UniformGrid Columns="2" Margin="0,4,0,0">
                                 <StackPanel>
                                     <TextBlock Text="Task" Style="{StaticResource FieldTextBlockStyle}" />
@@ -188,13 +187,13 @@
                 <Grid Grid.Column="2" >
                     <Border Style="{StaticResource BorderPanel}" Margin="4">
                         <StackPanel>
-                            <TextBlock Text="{Binding TextService.Device.Type, StringFormat={}Device: {0}}" />
-                            <TextBlock Text="{Binding TextService.Device.DeviceId, StringFormat={}DeviceId: {0}}" />
-                            <TextBlock Text="{Binding TextService.Model.Name, StringFormat={}Model: {0}}" />
-                            <TextBlock Text="{Binding TextService.IsLoaded, StringFormat={}IsLoaded: {0}}" />
-                            <TextBlock Text="{Binding TextService.IsLoading, StringFormat={}IsLoading: {0}}" />
-                            <TextBlock Text="{Binding TextService.IsExecuting, StringFormat={}IsExecuting: {0}}" />
-                            <TextBlock Text="{Binding TextService.CanCancel, StringFormat={}CanCancel: {0}}" />
+                            <TextBlock Text="{Binding TranscribeService.Device.Type, StringFormat={}Device: {0}}" />
+                            <TextBlock Text="{Binding TranscribeService.Device.DeviceId, StringFormat={}DeviceId: {0}}" />
+                            <TextBlock Text="{Binding TranscribeService.Model.Name, StringFormat={}Model: {0}}" />
+                            <TextBlock Text="{Binding TranscribeService.IsLoaded, StringFormat={}IsLoaded: {0}}" />
+                            <TextBlock Text="{Binding TranscribeService.IsLoading, StringFormat={}IsLoading: {0}}" />
+                            <TextBlock Text="{Binding TranscribeService.IsExecuting, StringFormat={}IsExecuting: {0}}" />
+                            <TextBlock Text="{Binding TranscribeService.CanCancel, StringFormat={}CanCancel: {0}}" />
                         </StackPanel>
                     </Border>
                 </Grid>

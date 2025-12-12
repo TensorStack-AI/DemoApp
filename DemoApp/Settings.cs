@@ -29,6 +29,7 @@ namespace DemoApp
         public ObservableCollection<DiffusionControlNetModel> DiffusionControlNetModels { get; set; }
         public ObservableCollection<DetectModel> DetectModels { get; set; }
         public ObservableCollection<TextModel> TextModels { get; set; }
+        public ObservableCollection<TranscribeModel> TranscribeModels { get; set; }
 
 
         public void Initialize()
@@ -66,6 +67,10 @@ namespace DemoApp
             var textDirectory = Path.Combine(DirectoryModel, "Text");
             foreach (var textModel in TextModels)
                 textModel.Initialize(textDirectory);
+
+            var transcribeDirectory = Path.Combine(DirectoryModel, "Transcribe");
+            foreach (var transcribeModel in TranscribeModels)
+                transcribeModel.Initialize(transcribeDirectory);
 
             var diffusionDirectory = Path.Combine(DirectoryModel, "Diffusion");
             foreach (var diffusionModel in DiffusionModels)
@@ -116,6 +121,16 @@ namespace DemoApp
         }
 
         public void SetDefault(TextModel model)
+        {
+            foreach (var existing in TextModels)
+            {
+                existing.IsDefault = false;
+            }
+            model.IsDefault = true;
+        }
+
+
+        public void SetDefault(TranscribeModel model)
         {
             foreach (var existing in TextModels)
             {

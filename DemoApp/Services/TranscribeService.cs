@@ -11,21 +11,21 @@ using TensorStack.TextGeneration.Pipelines.Whisper;
 
 namespace DemoApp.Services
 {
-    public class WhisperService : ServiceBase, IWhisperService
+    public class TranscribeService : ServiceBase, ITranscribeService
     {
         private readonly Settings _settings;
         private PipelineModel _currentPipeline;
-        private IPipeline _whisperPipeline;
+        private IPipeline _transcribePipeline;
         private CancellationTokenSource _cancellationTokenSource;
         private bool _isLoaded;
         private bool _isLoading;
         private bool _isExecuting;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="WhisperService"/> class.
+        /// Initializes a new instance of the <see cref="TranscribeService"/> class.
         /// </summary>
         /// <param name="settings">The settings.</param>
-        public WhisperService(Settings settings)
+        public TranscribeService(Settings settings)
         {
             _settings = settings;
         }
@@ -82,24 +82,24 @@ namespace DemoApp.Services
                 {
                     var cancellationToken = _cancellationTokenSource.Token;
                     if (_currentPipeline != null)
-                        await _whisperPipeline.UnloadAsync(cancellationToken);
+                        await _transcribePipeline.UnloadAsync(cancellationToken);
 
                     _currentPipeline = pipeline;
-                    var model = _currentPipeline.TextModel;
+                    var model = _currentPipeline.TranscribeModel;
                     var provider = _currentPipeline.Device.GetProvider();
                     var providerCPU = Provider.GetProvider(DeviceType.CPU); // TODO: DirectML not working with decoder
 
                     if (!Enum.TryParse<WhisperType>(model.Version, true, out var whisperType))
                         throw new ArgumentException("Invalid WhisperType Version");
 
-                    _whisperPipeline = WhisperPipeline.Create(providerCPU, model.Path, whisperType);
-                    await Task.Run(() => _whisperPipeline.LoadAsync(cancellationToken), cancellationToken);
+                    _transcribePipeline = WhisperPipeline.Create(providerCPU, model.Path, whisperType);
+                    await Task.Run(() => _transcribePipeline.LoadAsync(cancellationToken), cancellationToken);
                 }
             }
             catch (OperationCanceledException)
             {
-                _whisperPipeline?.Dispose();
-                _whisperPipeline = null;
+                _transcribePipeline?.Dispose();
+                _transcribePipeline = null;
                 _currentPipeline = null;
                 throw;
             }
@@ -115,7 +115,7 @@ namespace DemoApp.Services
         /// Execute the pipeline.
         /// </summary>
         /// <param name="options">The options.</param>
-        public async Task<GenerateResult[]> ExecuteAsync(WhisperRequest options)
+        public async Task<GenerateResult[]> ExecuteAsync(TranscribeRequest options)
         {
             try
             {
@@ -146,12 +146,12 @@ namespace DemoApp.Services
                         if (options.Beams == 0)
                         {
                             // Greedy Search
-                            var greedyPipeline = _whisperPipeline as IPipeline<GenerateResult, WhisperOptions, GenerateProgress>;
+                            var greedyPipeline = _transcribePipeline as IPipeline<GenerateResult, WhisperOptions, GenerateProgress>;
                             return [await greedyPipeline.RunAsync(pipelineOptions, cancellationToken: _cancellationTokenSource.Token)];
                         }
 
                         // Beam Search
-                        var beamSearchPipeline = _whisperPipeline as IPipeline<GenerateResult[], WhisperSearchOptions, GenerateProgress>;
+                        var beamSearchPipeline = _transcribePipeline as IPipeline<GenerateResult[], WhisperSearchOptions, GenerateProgress>;
                         return await beamSearchPipeline.RunAsync(new WhisperSearchOptions(pipelineOptions), cancellationToken: _cancellationTokenSource.Token);
                     });
 
@@ -182,9 +182,9 @@ namespace DemoApp.Services
             if (_currentPipeline != null)
             {
                 await _cancellationTokenSource.SafeCancelAsync();
-                await _whisperPipeline.UnloadAsync();
-                _whisperPipeline.Dispose();
-                _whisperPipeline = null;
+                await _transcribePipeline.UnloadAsync();
+                _transcribePipeline.Dispose();
+                _transcribePipeline = null;
                 _currentPipeline = null;
             }
 
@@ -195,7 +195,7 @@ namespace DemoApp.Services
     }
 
 
-    public interface IWhisperService
+    public interface ITranscribeService
     {
         PipelineModel Pipeline { get; }
         bool IsLoaded { get; }
@@ -205,11 +205,11 @@ namespace DemoApp.Services
         Task LoadAsync(PipelineModel pipeline);
         Task UnloadAsync();
         Task CancelAsync();
-        Task<GenerateResult[]> ExecuteAsync(WhisperRequest options);
+        Task<GenerateResult[]> ExecuteAsync(TranscribeRequest options);
     }
 
 
-    public record WhisperRequest : ITransformerRequest
+    public record TranscribeRequest : ITransformerRequest
     {
         public AudioTensor AudioInput { get; set; }
         public LanguageType Language { get; set; } = LanguageType.EN;

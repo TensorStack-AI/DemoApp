@@ -6,37 +6,35 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Data;
 using TensorStack.Common;
-using TensorStack.Common.Common;
 using TensorStack.WPF;
 using TensorStack.WPF.Controls;
-using TensorStack.WPF.Services;
 
 namespace DemoApp.Controls
 {
     /// <summary>
-    /// Interaction logic for TextModelControl.xaml
+    /// Interaction logic for TranscribeModelControl.xaml
     /// </summary>
-    public partial class TextModelControl : BaseControl
+    public partial class TranscribeModelControl : BaseControl
     {
         private ListCollectionView _modelCollectionView;
         private Device _selectedDevice;
-        private TextModel _selectedModel;
+        private TranscribeModel _selectedModel;
         private Device _currentDevice;
-        private TextModel _currentModel;
+        private TranscribeModel _currentModel;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="TextModelControl"/> class.
+        /// Initializes a new instance of the <see cref="TranscribeModelControl"/> class.
         /// </summary>
-        public TextModelControl()
+        public TranscribeModelControl()
         {
             LoadCommand = new AsyncRelayCommand(LoadAsync, CanLoad);
             UnloadCommand = new AsyncRelayCommand(UnloadAsync, CanUnload);
             InitializeComponent();
         }
 
-        public static readonly DependencyProperty SettingsProperty = DependencyProperty.Register(nameof(Settings), typeof(Settings), typeof(TextModelControl), new PropertyMetadata<TextModelControl>((c) => c.OnSettingsChanged()));
-        public static readonly DependencyProperty IsSelectionValidProperty = DependencyProperty.Register(nameof(IsSelectionValid), typeof(bool), typeof(TextModelControl));
-        public static readonly DependencyProperty CurrentPipelineProperty = DependencyProperty.Register(nameof(CurrentPipeline), typeof(PipelineModel), typeof(TextModelControl), new PropertyMetadata<TextModelControl>((c) => c.OnPipelineChanged()));
+        public static readonly DependencyProperty SettingsProperty = DependencyProperty.Register(nameof(Settings), typeof(Settings), typeof(TranscribeModelControl), new PropertyMetadata<TranscribeModelControl>((c) => c.OnSettingsChanged()));
+        public static readonly DependencyProperty IsSelectionValidProperty = DependencyProperty.Register(nameof(IsSelectionValid), typeof(bool), typeof(TranscribeModelControl));
+        public static readonly DependencyProperty CurrentPipelineProperty = DependencyProperty.Register(nameof(CurrentPipeline), typeof(PipelineModel), typeof(TranscribeModelControl), new PropertyMetadata<TranscribeModelControl>((c) => c.OnPipelineChanged()));
 
         public event EventHandler<PipelineModel> SelectionChanged;
         public AsyncRelayCommand LoadCommand { get; }
@@ -66,7 +64,7 @@ namespace DemoApp.Controls
             set { SetProperty(ref _selectedDevice, value); }
         }
 
-        public TextModel SelectedModel
+        public TranscribeModel SelectedModel
         {
             get { return _selectedModel; }
             set { SetProperty(ref _selectedModel, value); }
@@ -88,7 +86,7 @@ namespace DemoApp.Controls
             CurrentPipeline = new PipelineModel
             {
                 Device = _currentDevice,
-                TextModel = _currentModel
+                TranscribeModel = _currentModel
             };
         }
 
@@ -134,10 +132,10 @@ namespace DemoApp.Controls
 
         private Task OnSettingsChanged()
         {
-            ModelCollectionView = new ListCollectionView(Settings.TextModels);
+            ModelCollectionView = new ListCollectionView(Settings.TranscribeModels);
             ModelCollectionView.Filter = (obj) =>
             {
-                if (obj is not TextModel viewModel)
+                if (obj is not TranscribeModel viewModel)
                     return false;
 
                 if (_selectedDevice == null)
@@ -156,7 +154,7 @@ namespace DemoApp.Controls
             ModelCollectionView?.Refresh();
             if (ModelCollectionView is not null)
             {
-                SelectedModel = ModelCollectionView.Cast<TextModel>().FirstOrDefault(x => x == _currentModel || x.IsDefault);
+                SelectedModel = ModelCollectionView.Cast<TranscribeModel>().FirstOrDefault(x => x == _currentModel || x.IsDefault);
             }
         }
 
@@ -164,13 +162,13 @@ namespace DemoApp.Controls
         private Task OnPipelineChanged()
         {
             SelectedDevice = CurrentPipeline?.Device ?? Settings.DefaultDevice;
-            if (CurrentPipeline?.TextModel is not null)
+            if (CurrentPipeline?.TranscribeModel is not null)
             {
-                SelectedModel = CurrentPipeline.TextModel;
+                SelectedModel = CurrentPipeline.TranscribeModel;
             }
 
             _currentDevice = CurrentPipeline?.Device;
-            _currentModel = CurrentPipeline?.TextModel;
+            _currentModel = CurrentPipeline?.TranscribeModel;
             SelectionChanged?.Invoke(this, CurrentPipeline);
             return Task.CompletedTask;
         }
@@ -184,7 +182,7 @@ namespace DemoApp.Controls
             if (_selectedModel.IsValid)
                 return true;
 
-            return await _selectedModel.DownloadAsync(Path.Combine(Settings.DirectoryModel, "Text"));
+            return await _selectedModel.DownloadAsync(Path.Combine(Settings.DirectoryModel, "Transcribe"));
         }
     }
 }

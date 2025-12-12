@@ -320,7 +320,7 @@
                     <!--Audio-->
                     <Grid Visibility="{Binding ViewCategory, Converter={StaticResource EnumToVisibilityConverter}, ConverterParameter=Audio}">
                         <UniformGrid Columns="1" Width="90"  VerticalAlignment="Top"  >
-                            <Button Command="{Binding NavigateCommand}" CommandParameter="{x:Static Views:View.AudioDefault}" Height="60" Margin="0,0,0,1">
+                            <Button Command="{Binding NavigateCommand}" CommandParameter="{x:Static Views:View.AudioTranscribe}" Height="60" Margin="0,0,0,1">
                                 <DockPanel>
                                     <CommonControls:FontAwesome DockPanel.Dock="Top" Icon="&#xf8b6;" Size="20" Color="{StaticResource AccentColour2}" IconStyle="Regular" />
                                     <TextBlock Text="Transcribe" FontWeight="SemiBold" FontSize="13" Opacity=".9"/>
@@ -328,7 +328,7 @@
                                 <Button.Style>
                                     <Style TargetType="{x:Type Button}" BasedOn="{StaticResource {x:Type Button}}">
                                         <Style.Triggers>
-                                            <DataTrigger Binding="{Binding View, ElementName=UI}" Value="{x:Static Views:View.AudioDefault}">
+                                            <DataTrigger Binding="{Binding View, ElementName=UI}" Value="{x:Static Views:View.AudioTranscribe}">
                                                 <Setter Property="BorderBrush" Value="{StaticResource AccentColour1}"/>
                                             </DataTrigger>
                                         </Style.Triggers>

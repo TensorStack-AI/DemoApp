@@ -9,7 +9,7 @@ using TensorStack.WPF.Services;
 
 namespace DemoApp.Common
 {
-    public class TextModel : BaseModel, IModelDownload
+    public class TranscribeModel : BaseModel, IModelDownload
     {
         private bool _isValid;
 
@@ -17,11 +17,9 @@ namespace DemoApp.Common
         public string Name { get; init; }
         public bool IsDefault { get; set; }
         public DeviceType[] SupportedDevices { get; init; }
-        public TextModelType Type { get; init; }
         public string Version { get; set; }
         public int MinLength { get; init; }
         public int MaxLength { get; init; }
-        public string[] Prefixes { get; init; }
         public string[] UrlPaths { get; init; }
 
 
@@ -55,12 +53,5 @@ namespace DemoApp.Common
 
             return IsValid;
         }
-    }
-
-    public enum TextModelType
-    {
-        Summary = 0,
-        Phi3 = 1,
-        Supertonic = 3
     }
 }

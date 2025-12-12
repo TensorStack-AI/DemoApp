@@ -607,18 +607,17 @@
         "https://huggingface.co/saddam213/DemoApp/resolve/main/Text/TextSummary/spiece.model?download=true",
         "https://huggingface.co/saddam213/DemoApp/resolve/main/Text/TextSummary/tokenizer.json?download=true"
       ]
-    },
-    {
-      "Id": 31,
+    }
+  ],
+  "TranscribeModels": [{
+      "Id": 1,
       "Name": "Whisper-Tiny",
       "IsDefault": true,
-      "Type": "Whisper",
+      "Type": "Transcribe",
       "Version": "Tiny",
       "SupportedDevices": [ "CPU", "GPU" ],
       "MinLength": 20,
       "MaxLength": 512,
-      "Prefixes": [ "Transcribe", "Translate" ],
-      "Path": "Models\\Whisper-Tiny",
       "UrlPaths": [
         "https://huggingface.co/saddam213/DemoApp/resolve/main/Text/Whisper-Tiny/decoder_model_merged.onnx?download=true",
         "https://huggingface.co/saddam213/DemoApp/resolve/main/Text/Whisper-Tiny/encoder_model.onnx?download=true",
@@ -629,15 +628,13 @@
       ]
     },
     {
-      "Id": 32,
+      "Id": 2,
       "Name": "Whisper-Small",
-      "Type": "Whisper",
+      "Type": "Transcribe",
       "Version": "Small",
       "SupportedDevices": [ "CPU", "GPU" ],
       "MinLength": 20,
       "MaxLength": 512,
-      "Prefixes": [ "Transcribe", "Translate" ],
-      "Path": "Models\\Whisper-Small",
       "UrlPaths": [
         "https://huggingface.co/saddam213/DemoApp/resolve/main/Text/Whisper-Small/decoder_model_merged.onnx?download=true",
         "https://huggingface.co/saddam213/DemoApp/resolve/main/Text/Whisper-Small/encoder_model.onnx?download=true",
@@ -648,15 +645,13 @@
       ]
     },
     {
-      "Id": 33,
+      "Id": 3,
       "Name": "Whisper-Medium",
-      "Type": "Whisper",
+      "Type": "Transcribe",
       "Version": "Medium",
       "SupportedDevices": [ "CPU", "GPU" ],
       "MinLength": 20,
       "MaxLength": 512,
-      "Prefixes": [ "Transcribe", "Translate" ],
-      "Path": "Models\\Whisper-Medium",
       "UrlPaths": [
         "https://huggingface.co/saddam213/DemoApp/resolve/main/Text/Whisper-Medium/decoder_model_merged.onnx?download=true",
         "https://huggingface.co/saddam213/DemoApp/resolve/main/Text/Whisper-Medium/encoder_model.onnx?download=true",
@@ -667,15 +662,13 @@
       ]
     },
     {
-      "Id": 34,
+      "Id": 4,
       "Name": "Whisper-Base",
-      "Type": "Whisper",
+      "Type": "Transcribe",
       "Version": "Base",
       "SupportedDevices": [ "CPU", "GPU" ],
       "MinLength": 20,
       "MaxLength": 512,
-      "Prefixes": [ "Transcribe", "Translate" ],
-      "Path": "Models\\Whisper-Base",
       "UrlPaths": [
         "https://huggingface.co/saddam213/DemoApp/resolve/main/Text/Whisper-Base/decoder_model_merged.onnx?download=true",
         "https://huggingface.co/saddam213/DemoApp/resolve/main/Text/Whisper-Base/encoder_model.onnx?download=true",
@@ -686,15 +679,13 @@
       ]
     },
     {
-      "Id": 35,
+      "Id": 5,
       "Name": "Whisper-Large",
-      "Type": "Whisper",
+      "Type": "Transcribe",
       "Version": "Large",
       "SupportedDevices": [ "CPU", "GPU" ],
       "MinLength": 20,
       "MaxLength": 512,
-      "Prefixes": [ "Transcribe", "Translate" ],
-      "Path": "Models\\Whisper-Large",
       "UrlPaths": [
         "https://huggingface.co/saddam213/DemoApp/resolve/main/Text/Whisper-Large/decoder_model_merged.onnx?download=true",
         "https://huggingface.co/saddam213/DemoApp/resolve/main/Text/Whisper-Large/encoder_model.onnx?download=true",

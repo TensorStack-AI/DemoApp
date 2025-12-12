@@ -20,7 +20,7 @@ namespace DemoApp.Views
         VideoExtractor = 301,
         VideoInterpolation = 302,
 
-        AudioDefault = 400,
+        AudioTranscribe = 400,
       
     }
 
@@ -44,7 +44,7 @@ namespace DemoApp.Views
             {ViewCategory.Text, View.TextSummary },
             {ViewCategory.Image, View.ImageExtractor },
             {ViewCategory.Video, View.VideoUpscale },
-            {ViewCategory.Audio, View.AudioDefault }
+            {ViewCategory.Audio, View.AudioTranscribe }
         };
 
 
@@ -71,7 +71,7 @@ namespace DemoApp.Views
             { View.VideoInterpolation, ViewCategory.Video  },
 
             // Audio
-            { View.AudioDefault, ViewCategory.Audio  }
+            { View.AudioTranscribe, ViewCategory.Audio  }
         };
 
 
